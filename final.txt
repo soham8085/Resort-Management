@@ -1,0 +1,324 @@
+import time
+import sys
+import mysql.connector
+import random
+from tabulate import tabulate
+con=mysql.connector.connect(host="localhost",user="root",password="12345",database="Hotel")
+if con.is_connected():
+    print("\t\t\t\t\t\t\tWelcome to Mapple Resort\n\t\t\t\t\t\tOne of the finest Resorts of India\n\n\t\t\t\t\t\t\t\tMUMBAI Booking")
+#BOOKING
+cur=con.cursor()
+Checkin=input("Enter Check In date [YYYY-MM-DD]:  ")
+Checkout=input("Enter Check out date [YYYY-MM-DD]: ")
+print("\nEnter the no. of people with you\n\t\twho will be staying with us")
+No_of_people=int(input("-> "))
+print("\nFinding rooms....")
+time.sleep(4)
+if No_of_people==1:
+    table = [["1.Suite Room",12000],["2.Queen Room",8000],["3.Delux Room",4500],["4.Single Room",2500]]
+    headers = ["Room_type", "Cost(Rs.)"]
+    print(tabulate(table, headers, tablefmt="fancy_grid"))
+    select=int(input("select a suitable room for yourself by selecting 1,2,3 or 4: "))
+
+    if select == 1:
+        print("\nOK!")
+    
+    elif select == 2:
+        print("\nOK!")
+    
+    elif select == 3:
+        print("\nOK!")
+    
+    elif select == 4:
+        print("\nOK!")
+    else:
+        print("\nInvalid option choosed:(")
+if No_of_people==2:
+    table1 = [["1.Suite Room",12000],["2.Queen Room",8000],["3.Delux Room",4500]]
+    headers = ["Room_type", "Cost(Rs.)"]
+    print(tabulate(table1, headers, tablefmt="fancy_grid")) 
+    select=int(input("select a suitable room for yourself by selecting 1,2 or 3: "))
+
+    if select == 1:
+        print("\nOK!")
+    
+    elif select == 2:
+        print("\nOK!")
+    
+    elif select == 3:
+        print("\nOK!")
+    else:
+        print("\nInvalid option choosed:(")
+if No_of_people ==3 or No_of_people ==4:
+    table2 = [["1.Suite Room",12000],["2.Queen Room",8000]]
+    headers = ["Room_type", "Cost(Rs.)"]
+    print(tabulate(table2, headers, tablefmt="fancy_grid"))
+    select=int(input("select a suitable room for yourself by selecting 1 or 2: "))
+
+    if select == 1:
+        print("\nOK!")
+    
+    elif select == 2:
+        print("\nOK!")
+    else:
+        print("\nInvalid option choosed:(")
+if No_of_people ==5:
+    table2 = [["1.Suite Room",12000]]
+    headers = ["Room_type", "Cost(Rs.)"]
+    print(tabulate(table2, headers, tablefmt="fancy_grid"))
+    print("You can only book a suite room if you have so many people")
+    select=input("Do you want to continue?(Y/N) :")
+    if select == "Y" or select =="y":
+        print("\nOK!")
+    elif select == "N" or select == "n":
+        print("\nFine,")
+        print("You can place another booking taking more rooms with fewer people for cost efficiency.")
+        print("\nRegards,\nMapple Ressort")        
+        sys.exit()
+else:
+    if No_of_people>5:
+        print("Sorry....you can't book a room with so many people staying with you")
+        sys.exit()
+time.sleep(1)
+print("\n\nREGISTRATION DETAILS")
+print("--------------------")
+time.sleep(1)
+name=input("\nEnter your Name: ")
+phoneno=(input("Enter your Phone No.: "))
+aadharid=(input("Enter your Aadhar ID: "))
+days=int(input("Enter the number of days you want to stay: "))
+roomrent=0
+if select == 1:
+    roomrent= days * 12000
+    print("\nYour total Room cost will be: ",roomrent)
+if select == 2:
+    roomrent= days * 8000
+    print("\nYour total Room cost will be: ",roomrent)
+if select == 3:
+    roomrent= days * 4500
+    print("\nYour total Room cost will be: ",roomrent)
+if select == 4:
+    roomrent= days * 2500 
+    print("\nYour total Room cost will be: ",roomrent)
+roomno=random.randint(101,499)
+
+#TAXI
+print("\nMumbai is blessed with various tourist spots such as 'The Gateway of India',\n"\
+      "'Red Carpet Wax Museum','Elephanta Caves' etc.")
+time.sleep(4)
+print("\nWe have various TAXI's to show you some of them:")
+table4 = [["Ciaz",1500],["Innova Crysta",2000],["Santro",900],["BMW X5",8000]]
+headers = ["Car", "Cost/day(Rs.)"]
+print(tabulate(table4, headers, tablefmt="fancy_grid"))
+time.sleep(1)
+Taxi=input("\nWould you like to our Hotel's Taxi (Y/N): ")
+if Taxi == "Y"or Taxi =="y": 
+    day=int(input("For how many days would you like to have our Taxi?: "))
+    choose=int(input("select a suitable car for yourself by typing 1,2,3 or 4: "))
+    
+    if choose == 1:
+        print("\nYou have chosen CIAZ costing 1500 perday.")
+  
+    elif choose == 2:
+        print("\nYou have chosen INNOVA CRYSTA costing 2000 perday.")
+        
+    elif choose == 3:
+        print("\nYou have chosen SANTRO costing 900 perday.")
+    
+    elif choose == 4:
+        print("\nYou have chosen BMW costing 8000 perday.")
+    else:
+        print("\nInvalid option choosed")
+        
+    taxirent=0
+    if choose==1:
+        taxirent= day * 1500
+        print("\nYour total Taxi cost will be: ",taxirent)
+    if choose==2:
+        taxirent= day * 2000
+        print("\nYour total Taxi cost will be: ",taxirent)
+    if choose==3:
+        taxirent= day * 900
+        print("\nYour total Taxi cost will be: ",taxirent)
+    if choose==4:
+        taxirent= day * 8000
+        print("\nYour total Taxi cost will be: ",taxirent)
+     
+elif Taxi == "N"or Taxi =="n":
+    print("No problem:)")    
+    taxirent=0
+time.sleep(1)
+booking_bill = (roomrent + taxirent)
+print("Your Total booking will cost you",booking_bill)
+confirm=input("Do you want to continue? (Y/N):")
+if confirm == 'Y' or confirm == 'y':
+    print("OK!")
+elif confirm == "N" or confirm == 'n':
+    print("No problem:)")
+    sys.exit()
+else:
+    print("\nInvalid option choosed:(")
+#PAYMENT
+print("\n\t Payment")
+print(" --------------------------------")
+print("  MODE OF PAYMENT")
+
+print("  1- Credit/Debit Card")
+print("  2- Paytm/PhonePe")
+print("  3- Using UPI")
+print("  4- Cash")
+x=int(input("-> "))
+print("\n Amount: ",(roomrent+taxirent))
+print("\n   Pay For Mapple")
+print("   (y/n)")
+ch=str(input("-> "))
+print("\nWaiting for Confirmation from management.....")
+time.sleep(3)
+print("Done!")
+print("\nYour Room no. will be",roomno)
+query=("Insert into booking Values ('{}','{}','{}','{}','{}','{}',{})".format(Checkin,Checkout,No_of_people, name, phoneno, aadharid, roomno))
+cur.execute(query)
+con.commit()
+time.sleep(2)
+print("\n...\nCongratulations")
+print("Booking Detalis confirmed....Data has been sent to our Manager\nYou will get your room key at our Hotel's reception desk")
+time.sleep(1)
+print("\nThank you for Choosing Us")
+
+#FOOD_ORDER
+r=0
+print("\n\n-------------------------------------------------------------------------")
+print("                           Mapple Resort")
+print("-------------------------------------------------------------------------")
+print("                            Menu Card")
+print("-------------------------------------------------------------------------")
+print("\n BEVARAGES                              26 Dal Fry................ 140.00")
+print("----------------------------------      27 Dal Makhani............ 150.00")
+print(" 1  Regular Tea............. 20.00      28 Dal Tadka.............. 150.00")
+print(" 2  Masala Tea.............. 25.00")
+print(" 3  Coffee.................. 25.00      ROTI")
+print(" 4  Cold Drink.............. 25.00     ----------------------------------")
+print(" 5  Bread Butter............ 30.00      29 Plain Roti.............. 15.00")
+print(" 6  Bread Jam............... 30.00      30 Butter Roti............. 15.00")
+print(" 7  Veg. Sandwich........... 50.00      31 Tandoori Roti........... 20.00")
+print(" 8  Veg. Toast Sandwich..... 50.00      32 Butter Naan............. 20.00")
+print(" 9  Cheese Toast Sandwich... 70.00")
+print(" 10 Grilled Sandwich........ 70.00      RICE")
+print("                                       ----------------------------------")
+print(" SOUPS                                  33 Plain Rice.............. 90.00")
+print("----------------------------------      34 Jeera Rice.............. 90.00")
+print(" 11 Tomato Soup............ 110.00      35 Veg Pulao.............. 110.00")
+print(" 12 Hot & Sour............. 110.00      36 Peas Pulao............. 110.00")
+print(" 13 Veg. Noodle Soup....... 110.00")
+print(" 14 Sweet Corn............. 110.00      SOUTH INDIAN")
+print(" 15 Veg. Munchow........... 110.00     ----------------------------------")
+print("                                        37 Plain Dosa............. 100.00")
+print(" MAIN COURSE                            38 Onion Dosa............. 110.00")
+print("----------------------------------      39 Masala Dosa............ 130.00")
+print(" 16 Shahi Paneer........... 110.00      40 Paneer Dosa............ 130.00")
+print(" 17 Kadai Paneer........... 110.00      41 Rice Idli.............. 130.00")
+print(" 18 Handi Paneer........... 120.00      42 Sambhar Vada........... 140.00")
+print(" 19 Palak Paneer........... 120.00")
+print(" 20 Chilli Paneer.......... 140.00      ICE CREAM")
+print(" 21 Matar Mushroom......... 140.00     ----------------------------------")
+print(" 22 Mix Veg................ 140.00      43 Vanilla................. 60.00")
+print(" 23 Jeera Aloo............. 140.00      44 Strawberry.............. 60.00")
+print(" 24 Malai Kofta............ 140.00      45 Pineapple............... 60.00")
+print(" 25 Aloo Matar............. 140.00      46 Butter Scotch........... 60.00")
+print("Press 0 -to end ")
+ch=1
+while(ch!=0):
+                 
+                ch=int(input(" -> "))
+                 
+                if ch==1 or ch==31 or ch==32:
+                    rs=20
+                    r=r+rs
+                elif ch<=4 and ch>=2:
+                    rs=25
+                    r=r+rs
+                elif ch<=6 and ch>=5:
+                    rs=30
+                    r=r+rs
+                elif ch<=8 and ch>=7:
+                    rs=50
+                    r=r+rs
+                elif ch<=10 and ch>=9:
+                    rs=70
+                    r=r+rs
+                elif (ch<=17 and ch>=11) or ch==35 or ch==36 or ch==38:
+                    rs=110
+                    r=r+rs
+                elif ch<=19 and ch>=18:
+                    rs=120
+                    r=r+rs
+                elif (ch<=26 and ch>=20) or ch==42:
+                    rs=140
+                    r=r+rs
+                elif ch<=28 and ch>=27:
+                    rs=150
+                    r=r+rs
+                elif ch<=30 and ch>=29:
+                    rs=15
+                    r=r+rs
+                elif ch==33 or ch==34:
+                    rs=90
+                    r=r+rs
+                elif ch==37:
+                    rs=100
+                    r=r+rs
+                elif ch<=41 and ch>=39:
+                    rs=130
+                    r=r+rs
+                elif ch<=46 and ch>=43:
+                    rs=60
+                    r=r+rs
+                elif ch==0:
+                    pass
+                else:
+                    print("Wrong Choice..!!")
+print("Total Bill: ",r)
+             
+
+#PAYMENT
+print("\n Payment")
+print(" --------------------------------")
+print("  MODE OF PAYMENT")
+
+print("  1- Credit/Debit Card")
+print("  2- Paytm/PhonePe")
+print("  3- Using UPI")
+print("  4- Cash")
+x=int(input("-> "))
+print("\n Amount: ",(roomrent+taxirent+r))
+print("\n   Pay For Mapple")
+print("   (y/n)")
+ch=str(input("-> "))
+print("\nCreating bill....")
+time.sleep(2)
+
+if ch=='y' or ch=='Y':
+    print("\n\n --------------------------------")
+    print("       Mapple Resort, Mumbai")
+    print(" --------------------------------")
+    print("              Bill")
+    print(" --------------------------------")
+    print(" Name:      ",name,"\t\n Phone No.: ",phoneno)
+    print("\n Check-In:  ",Checkin,"\t\n Check-Out: ",Checkout,"\t")
+    print("\t\n Room Charges:       ",roomrent)
+    print(" Taxi Charges:       ",taxirent)
+    print(" Restaurant Charges: ",r)
+    print(" --------------------------------")
+    print("\n Total Amount: ",(roomrent+taxirent+r))
+    print(" --------------------------------")
+    print("          Thank You")
+    print("          Visit Again :)")
+    print(" --------------------------------\n")
+
+
+
+
+
+
+
+
